@@ -4,7 +4,7 @@ int main(){
 
     int num;
     int num2;
-    std::cout <<"Enter the balance: ";
+    std::cout <<"Enter the balance: !!!";
     std::cin >>num;
     std::cout <<"Enter a: ";
     std::cin >>num2;
