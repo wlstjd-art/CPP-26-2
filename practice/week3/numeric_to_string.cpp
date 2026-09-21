@@ -4,7 +4,7 @@
 int main(){
 
 
-    std::string s1 = "apple";
+    std::string s1 = "appleB";
     std::string s2;
 
     s2 = s1 + " "+ std::to_string(10);
