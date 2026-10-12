@@ -12,10 +12,9 @@ int main(){
         std::cin >> scores[i];
         sum += scores[i];
     }
-    foreach(){
-        std::cout
+    for (i = 0; i <students; i++){
+        sum += scores[i];
     }
-    
 
     average = sum /students;
     std::cout <<"성적 평균 = "<<average << '\n';
