@@ -5,8 +5,8 @@ class Time{
     public:
     int hour;
     int minute;
-    Time(){}
-    Time(int h, int m){
+
+    Time(int h=0, int m=0){
         hour = h;
         minute = m;
     }
@@ -22,7 +22,6 @@ int main()
     Time c{10,40};
     Time d = {10,50};
 
-    a.print();
     b.print();
     c.print();
     d.print();
