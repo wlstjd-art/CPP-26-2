@@ -1,2 +1,5 @@
 # C++ compiled executables
 *.exe
+
+# JetBrains IDE
+.idea/
