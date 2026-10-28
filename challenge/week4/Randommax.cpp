@@ -30,7 +30,7 @@ int main(){
 
         }
     }
-    std::cout <<"가장 큰 값은"<<max<<"이고,"<<"i와 j는 각각 "<<maxI<<maxJ<<"입니다.";
+    std::cout <<"가장 큰 값은"<<max<<"이고,"<<"i와 j는 각각 "<<maxI<<","<<maxJ<<"입니다.";
 
 
 

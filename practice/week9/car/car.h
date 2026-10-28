@@ -5,11 +5,12 @@ using namespace std;
 class Car
 {
 
-    int speed;
+    
     int gear;
     string color;
     
     public:
+        int speed;
         int getspeed();
         void setspeed(int s);
 
