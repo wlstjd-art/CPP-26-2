@@ -45,7 +45,7 @@ int main() {
 				user_y += 1;
 			}
 			else {
-				cout << "위로 한 칸 올라갑니다." << endl;
+				cout << "한 칸 올라갑니다." << endl;
 				displayMap(map, user_x, user_y);
                 if(checkstate(map,user_x,user_y,hp)){
 					checkstate(map,user_x,user_y,hp);
@@ -63,7 +63,7 @@ int main() {
 				user_y -= 1;
 			}
 			else {
-				cout << "위로 한 칸 내려갑니다." << endl;
+				cout << "한 칸 내려갑니다." << endl;
 				displayMap(map, user_x, user_y);
                 if(checkstate(map,user_x,user_y,hp)){
 					checkstate(map,user_x,user_y,hp);
@@ -210,8 +210,12 @@ bool checkstate(int map[][mapX], int user_x, int user_y, int& hp){
 	else if(map[user_y][user_x] == 4){
 		return false;
 	}
-	else{
+	else if(map[user_y][user_x] == 0){
+		cout << "빈칸입니다~~ HP가 1감소합니다!" << endl;
 		return true;
+	}
+	else{
+		return false;
 	}
 
 }
