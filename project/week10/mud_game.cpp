@@ -9,7 +9,7 @@ const int mapY = 5;
 bool checkXY(int user_x, int mapX, int user_y, int mapY);
 void displayMap(int map[][mapX], int user_x, int user_y);
 bool checkGoal(int map[][mapX], int user_x, int user_y);
-
+bool checkstate(int map[][mapX], int user_x, int user_y, int& hp);
 // 메인  함수
 int main() {
 
@@ -30,6 +30,7 @@ int main() {
 	while (1) { // 사용자에게 계속 입력받기 위해 무한 루프
 
 		// 사용자의 입력을 저장할 변수
+		
 		string user_input = "";
         cout << "현재 HP: " <<hp << "   ";
 		cout << "명령어를 입력하세요 (상,하,좌,우,지도,종료): ";
@@ -46,7 +47,11 @@ int main() {
 			else {
 				cout << "위로 한 칸 올라갑니다." << endl;
 				displayMap(map, user_x, user_y);
-                hp--;
+                if(checkstate(map,user_x,user_y,hp)){
+					checkstate(map,user_x,user_y,hp);
+					hp--;
+				}
+				
 			}
 		}
 		else if (user_input == "하") {
@@ -60,7 +65,10 @@ int main() {
 			else {
 				cout << "위로 한 칸 내려갑니다." << endl;
 				displayMap(map, user_x, user_y);
-                hp--;
+                if(checkstate(map,user_x,user_y,hp)){
+					checkstate(map,user_x,user_y,hp);
+					hp--;
+				}
 			}
 		}
 		else if (user_input == "좌") {
@@ -75,7 +83,10 @@ int main() {
 			else {
 				cout << "왼쪽으로 이동합니다." << endl;
 				displayMap(map, user_x, user_y);
-                hp--;
+                if(checkstate(map,user_x,user_y,hp)){
+					checkstate(map,user_x,user_y,hp);
+					hp--;
+				}
 			}
 		}
 		else if (user_input == "우") {
@@ -89,7 +100,10 @@ int main() {
 			else {
 				cout << "오른쪽으로 이동합니다." << endl;
 				displayMap(map, user_x, user_y);
-                hp--;
+                if(checkstate(map,user_x,user_y,hp)){
+					checkstate(map,user_x,user_y,hp);
+					hp--;
+				}
 			}
 		}
 		else if (user_input == "지도") {
@@ -176,13 +190,29 @@ bool checkGoal(int map[][mapX], int user_x, int user_y) {
 	return false;
 }
 //뭔갈 만나나?
-void checkstate(int map[][mapX], int user_x, int user_y){
+bool checkstate(int map[][mapX], int user_x, int user_y, int& hp){   
     // 0은 빈 공간, 1은 아이템, 2는 적, 3은 포션, 4는 목적지
-    if (map[user_y][user_x] == 1)
-        cout << "아";
-   
     
-
+	if (map[user_y][user_x] == 1){
+        cout << "아이템이 있습니다. 그치만 뭐 없습니다. 그냥 지나가세요" << endl;
+		return false;    //기본체력깎이는지여부
+ 	}
+	else if(map[user_y][user_x] == 2){
+		cout << "적이 있습니다. 체력이 줄어듭니다!!" << endl;
+		hp = hp - 2;
+		return false;
+	}
+	else if(map[user_y][user_x] == 3){
+		cout << "포션이 있습니다!!!! HP가 2가 증가됩니다!" << endl;
+		hp = hp + 2;
+		return false;
+	}
+	else if(map[user_y][user_x] == 4){
+		return false;
+	}
+	else{
+		return true;
+	}
 
 }
     	
