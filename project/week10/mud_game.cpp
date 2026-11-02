@@ -48,9 +48,7 @@ int main() {
 				cout << "한 칸 올라갑니다." << endl;
 				displayMap(map, user_x, user_y);
                 checkstate(map,user_x,user_y,hp);
-					
-				
-				
+				hp--;
 			}
 		}
 		else if (user_input == "하") {
@@ -65,7 +63,7 @@ int main() {
 				cout << "한 칸 내려갑니다." << endl;
 				displayMap(map, user_x, user_y);
                 checkstate(map,user_x,user_y,hp);
-
+				hp--;
 			}
 		}
 		else if (user_input == "좌") {
@@ -81,7 +79,7 @@ int main() {
 				cout << "왼쪽으로 이동합니다." << endl;
 				displayMap(map, user_x, user_y);
                 checkstate(map,user_x,user_y,hp);
-
+				hp--;
 			}
 		}
 		else if (user_input == "우") {
@@ -96,6 +94,7 @@ int main() {
 				cout << "오른쪽으로 이동합니다." << endl;
 				displayMap(map, user_x, user_y);
                 checkstate(map,user_x,user_y,hp);
+				hp--;
 			}
 		}
 		else if (user_input == "지도") {
@@ -213,4 +212,3 @@ void checkstate(int map[][mapX], int user_x, int user_y, int& hp){
 	}
  */
 }
-    	
