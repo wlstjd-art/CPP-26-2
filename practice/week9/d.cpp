@@ -82,7 +82,7 @@ int main()
     // Compare 함수를 세 번째 인자로 전달
     //코드작성
 
-    sort(students.begin(),students.end(),true);
+    sort(students.begin(),students.end(),Compare);
 
 
     // 8. 정렬된 학생 정보 출력
