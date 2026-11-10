@@ -13,17 +13,35 @@ public:
 void Upgrade(Pizza p){  p.setRadius(20); }
 
 //값이 복사되어들어감.!
-void Upgradeto30(Pizza* p){
+void Upgradeto30(Pizza* p)
+{
     (*p).setRadius(30); //오이것도된다
     //근데 자동으로 알아서 p.set하면 p->으로바껴 저 화살표안에서 이 p가 포인터 변수라는걸 갈켜주나봐
 }
 
+void Upgradeto40(Pizza& p)
+{
+    p.setRadius(40);
+}
 
-int main(){
+Pizza create5inchpizza()
+{
+    Pizza obj(5);
+    return obj;
+}
+
+
+int main()
+{
     Pizza obj(10);
     Upgrade(obj);
     obj.Print();
     Upgradeto30(&obj);
     obj.Print();
+    Upgradeto40(obj);
+    obj.Print();
+    Pizza obj2;
+    obj2 = create5inchpizza();
+    obj2.Print();
     return 0;
 }
