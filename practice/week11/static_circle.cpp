@@ -17,7 +17,11 @@ public:
     return count;
   }
 };
+
+
 int Circle::count = 0;
+
+
 int main(){
 
   cout << "지금까지 생성된 원의 개수 = " << Circle::getCount() << endl;

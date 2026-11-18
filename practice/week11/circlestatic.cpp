@@ -15,7 +15,6 @@ public:
     }
 };
 int Circle::count = 0;
-int Circle::a = 0;
 
 
 int main(){
@@ -29,4 +28,5 @@ int main(){
     cout << "지금까지 생성된 원의 개수 = " << c2.count << endl;
 
     return 0;
+    
 }
