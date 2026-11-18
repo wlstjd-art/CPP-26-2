@@ -17,7 +17,7 @@ int main(){
         cout << ptr[i] << " ";
     }
 
-    delete[] ptr;
+    delete[] ptr;    //동적메모리 반납.
     cout << endl;
     
     return 0;

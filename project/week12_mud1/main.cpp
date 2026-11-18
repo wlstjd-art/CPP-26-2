@@ -6,23 +6,21 @@ const int mapX = 5;
 const int mapY = 5;
 //userclass
 class User{
-int hp;
-
+	int hp;
 public:
+	User(){
+		hp = 20;
+	}
     void DecreaseHP(int dec_hp){
-
+		hp -= dec_hp;
     }
     void IncreaseHP(int inc_hp){
-        
+        hp += inc_hp;
     }
-
-
-    
+	int GetHP(){
+		return hp;
+	}
 };
-
-
-
-
 
 
 // 사용자 정의 함수
