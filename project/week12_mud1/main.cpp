@@ -4,6 +4,26 @@ using namespace std;
 
 const int mapX = 5;
 const int mapY = 5;
+//userclass
+class User{
+int hp;
+
+public:
+    void DecreaseHP(int dec_hp){
+
+    }
+    void IncreaseHP(int inc_hp){
+        
+    }
+
+
+    
+};
+
+
+
+
+
 
 // 사용자 정의 함수
 bool checkXY(int user_x, int mapX, int user_y, int mapY);
