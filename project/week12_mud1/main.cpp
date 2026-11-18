@@ -1,37 +1,23 @@
 #include <iostream>
 #include <string>
+#include "user.h"
 using namespace std;
 
 const int mapX = 5;
 const int mapY = 5;
-//userclass
-class User{
-	int hp;
-public:
-	User(){
-		hp = 20;
-	}
-    void DecreaseHP(int dec_hp){
-		hp -= dec_hp;
-    }
-    void IncreaseHP(int inc_hp){
-        hp += inc_hp;
-    }
-	int GetHP(){
-		return hp;
-	}
-};
-
 
 // 사용자 정의 함수
 bool checkXY(int user_x, int mapX, int user_y, int mapY);
 void displayMap(int map[][mapX], int user_x, int user_y);
 bool checkGoal(int map[][mapX], int user_x, int user_y);
-void checkstate(int map[][mapX], int user_x, int user_y, int& hp);
+void checkstate(int map[][mapX], int user_x, int user_y, User& user);
+
 // 메인  함수
 int main() {
 
-    int hp = 20;
+	// hp = 20으로 시작하는 User 객체 (생성자가 초기화)
+	User user;
+
 	// 0은 빈 공간, 1은 아이템, 2는 적, 3은 포션, 4는 목적지
 	int map[mapY][mapX] = { {0, 1, 2, 0, 4},
 					{1, 0, 0, 2, 0},
@@ -44,13 +30,13 @@ int main() {
 	int user_x = 0; // 가로 번호
 	int user_y = 0; // 세로 번호
 
-	// 게임 시작 
-	while (1) { // 사용자에게 계속 입력받기 위해 무한 루프
+	// 게임 시작: user의 CheckUser가 true인 동안 계속 (hp가 0이 아니면 true)
+	while (user.CheckUser()) { // 사용자에게 계속 입력받기 위해
 
 		// 사용자의 입력을 저장할 변수
-		
+
 		string user_input = "";
-        cout << "현재 HP: " <<hp << "   ";
+		cout << "현재 HP: " << user.GetHP() << "   ";
 		cout << "명령어를 입력하세요 (상,하,좌,우,지도,종료): ";
 		cin >> user_input;
 
@@ -65,12 +51,12 @@ int main() {
 			else {
 				cout << "한 칸 올라갑니다." << endl;
 				displayMap(map, user_x, user_y);
-                checkstate(map,user_x,user_y,hp);
-				hp--;
+				checkstate(map, user_x, user_y, user);
+				user.DecreaseHP(1); // 한 칸 이동할 때마다 HP 1 감소
 			}
 		}
 		else if (user_input == "하") {
-			// TODO: 아래로 한 칸 내려가기
+			// 아래로 한 칸 내려가기
 			user_y += 1;
 			bool inMap = checkXY(user_x, mapX, user_y, mapY);
 			if (inMap == false) {
@@ -80,12 +66,12 @@ int main() {
 			else {
 				cout << "한 칸 내려갑니다." << endl;
 				displayMap(map, user_x, user_y);
-                checkstate(map,user_x,user_y,hp);
-				hp--;
+				checkstate(map, user_x, user_y, user);
+				user.DecreaseHP(1); // 한 칸 이동할 때마다 HP 1 감소
 			}
 		}
 		else if (user_input == "좌") {
-			// TODO: 왼쪽으로 이동하기
+			// 왼쪽으로 이동하기
 			user_x -= 1;
 			bool inMap = checkXY(user_x, mapX, user_y, mapY);
 
@@ -96,12 +82,12 @@ int main() {
 			else {
 				cout << "왼쪽으로 이동합니다." << endl;
 				displayMap(map, user_x, user_y);
-                checkstate(map,user_x,user_y,hp);
-				hp--;
+				checkstate(map, user_x, user_y, user);
+				user.DecreaseHP(1); // 한 칸 이동할 때마다 HP 1 감소
 			}
 		}
 		else if (user_input == "우") {
-			// TODO: 오른쪽으로 이동하기
+			// 오른쪽으로 이동하기
 			user_x += 1;
 			bool inMap = checkXY(user_x, mapX, user_y, mapY);
 			if (inMap == false) {
@@ -111,12 +97,12 @@ int main() {
 			else {
 				cout << "오른쪽으로 이동합니다." << endl;
 				displayMap(map, user_x, user_y);
-                checkstate(map,user_x,user_y,hp);
-				hp--;
+				checkstate(map, user_x, user_y, user);
+				user.DecreaseHP(1); // 한 칸 이동할 때마다 HP 1 감소
 			}
 		}
 		else if (user_input == "지도") {
-			// TODO: 지도 보여주기 함수 호출
+			// 지도 보여주기
 			displayMap(map, user_x, user_y);
 		}
 		else if (user_input == "종료") {
@@ -128,20 +114,20 @@ int main() {
 			continue;
 		}
 
-		// 목적지에 도달했는지 체크\
-        
-        bool die = hp <= 0;
+		// 목적지에 도달했는지 체크
+
+		bool die = user.GetHP() <= 0;
 		bool finish = checkGoal(map, user_x, user_y);
 		if (finish == true) {
 			cout << "목적지에 도착했습니다! 축하합니다!" << endl;
 			cout << "게임을 종료합니다." << endl;
 			break;
 		}
-        else if(die == true){
-            cout << "HP가 0 이하가 되었습니다. 실패했습니다." << endl;
+		else if (die == true) {
+			cout << "HP가 0 이하가 되었습니다. 실패했습니다." << endl;
 			cout << "게임을 종료합니다." << endl;
-            break;
-        }
+			break;
+		}
 
 	}
 	return 0;
@@ -199,34 +185,26 @@ bool checkGoal(int map[][mapX], int user_x, int user_y) {
 	return false;
 }
 //뭔갈 만나나?
-void checkstate(int map[][mapX], int user_x, int user_y, int& hp){   
-    // 0은 빈 공간, 1은 아이템, 2는 적, 3은 포션, 4는 목적지
-    
-	if (map[user_y][user_x] == 1){
-        cout << "아이템이 있습니다. hp가 1증가합니다!" << endl;
-		//return false;    //기본체력깎이는지여부
-		hp++;
- 	}
-	else if(map[user_y][user_x] == 2){
+void checkstate(int map[][mapX], int user_x, int user_y, User& user) {
+	// 0은 빈 공간, 1은 아이템, 2는 적, 3은 포션, 4는 목적지
+
+	if (map[user_y][user_x] == 1) {
+		cout << "아이템이 있습니다. hp가 1증가합니다!" << endl;
+		user.IncreaseHP(1);
+	}
+	else if (map[user_y][user_x] == 2) {
 		cout << "적이 있습니다. 체력이 2가 줄어듭니다!!" << endl;
-		hp -= 2;
-		//return false;
+		user.DecreaseHP(2);
 	}
-	else if(map[user_y][user_x] == 3){
+	else if (map[user_y][user_x] == 3) {
 		cout << "포션이 있습니다!!!! HP가 2가 증가됩니다!" << endl;
-		hp += 2;
-		//return false;
+		user.IncreaseHP(2);
 	}
-	else if(map[user_y][user_x] == 4){
-		//return false;
+	else if (map[user_y][user_x] == 4) {
+		// 목적지는 이벤트 없음
 	}
-	else if(map[user_y][user_x] == 0){
+	else if (map[user_y][user_x] == 0) {
 		cout << "빈칸입니다~~ 빈칸은 늘 HP가 1감소합니다!" << endl;
-		//return true;
-		hp--;
+		user.DecreaseHP(1);
 	}
-	/* else{
-		//return false;
-	}
- */
 }
