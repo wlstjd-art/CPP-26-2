@@ -1,21 +1,23 @@
 #include <iostream>
 using namespace std;
 
-class MyArray{
+class MyArray {
 public:
     int size;
-    int* data; // 포인터변수
+    int* data;
 
-    MyArray(int size)
-    {   
+    MyArray(int size) {   
         this->size = size;
         data = new int[size]; 
     }
-    ~MyArray()
-    {
-        if(data != NULL){
+    ~MyArray() {
+        if(data != NULL) {
             delete[] this->data;
-        } //동적메모리 반환
+        }
     }
-
 };
+
+int main() {
+    MyArray arr(5);
+    return 0;
+}
